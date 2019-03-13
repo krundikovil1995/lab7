@@ -1,5 +1,17 @@
 <?php
 
+$url = $_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];
+
+if (isset($_COOKIE['address'])){
+    $count = count($_COOKIE['address']);
+    setcookie("address[$count]", $url);
+} else {
+    setcookie("address[0]", $url);
+}
+
+?>
+<?php
+
 if (isset($_POST['registr'])){
     if (!empty($_POST['username'])){
         $username = $_POST['username'];
@@ -51,9 +63,9 @@ if (isset($_POST['registr'])){
         <label for="username">Введите логин: </label>
         <input type="text" name="username" id="username" required>
         <label fot="pass">Введите пароль: </label>
-        <input type="text" name="pass" id="pass" required>
+        <input type="password" name="pass" id="pass" required>
         <label fot="pass2">Введите пароль повторно: </label>
-        <input type="text" name="pass2" id="pass2" required>
+        <input type="password" name="pass2" id="pass2" required>
         <label fot="email">Введите email: </label>
         <input type="email" name="email" id="email" required>
         <input type="submit" id="registr" name="registr" value="Регистрация">

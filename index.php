@@ -1,7 +1,40 @@
 <?php
 
+$url = $_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];
+$date = date('Y-m-d H:i', time());
+date_default_timezone_set('UTC');
+
+if (isset($_COOKIE['address'])){
+    $count = count($_COOKIE['address']);
+    $count = $count+1;
+    setcookie("address[$count]", $url);
+    setcookie("time[$count]", $date);
+} else {
+    setcookie("address[0]", $url);
+    setcookie("time[0]", $date);
+}
+
+if (isset($_POST['history'])){
+    if (isset($_COOKIE['address']) && (isset($_COOKIE['time']))){
+        foreach ($_COOKIE['address'] as $value){
+            $res['adr'][] = $value;
+        }
+        foreach ($_COOKIE['time'] as $value){
+            $res['time'][] = $value;
+        }
+    }
+    foreach ($res['adr'] as $key=>$value){
+        echo $value." - ";
+        echo $res['time'][$key]."<br>";
+    }
+}
 
 ?>
+
+<form action="index.php" method="post">
+    <input type="submit" value="Посмотреть историю" name="history">
+</form>
+
 
 
 <!DOCTYPE html>
@@ -48,7 +81,7 @@ if(isset($_SESSION['user'])){ ?>
         <label for="username">Введите логин: </label>
         <input type="text" name="username" id="username">
         <label fot="pass">Введите пароль: </label>
-        <input type="text" name="pass" id="pass">
+        <input type="password" name="pass" id="pass">
         <input name="remember" type="checkbox" value="1"> Запомнить меня
         <button type="submit" name="log"> Войти </button>
     </fieldset>
