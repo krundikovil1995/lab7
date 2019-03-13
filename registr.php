@@ -59,3 +59,4 @@ if (isset($_POST['registr'])){
         <input type="submit" id="registr" name="registr" value="Регистрация">
     </fieldset>
 </form>
+<a href="index.php">На главную</a>

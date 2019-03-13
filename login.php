@@ -4,7 +4,7 @@
 if (isset($_POST['log'])){
     if (!empty($_POST['username'])){
         $user = trim($_POST['username'], '');
-    } else echo 'Введите имя';
+    } else echo 'Введите имя'."<br>";
     if (!empty($_POST['pass'])){
         $pass = trim($_POST['pass'], '');
     } else echo "Введите пароль";
@@ -22,8 +22,11 @@ if (isset($_POST['log'])){
             session_start();
             $_SESSION['user'] = $user;
             header("location: index.php");
-        } else echo 'Такого пользователя не существует';
-    }
+        } else {
+            echo 'Такого пользователя не существует';
+            echo "<br><a href='registr.php'>".'Зарегистрироваться'."</a>";
+        }
+    } else header("refresh:2, url=index.php");
 
 }
 
