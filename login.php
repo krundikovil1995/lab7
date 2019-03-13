@@ -21,6 +21,12 @@ if (isset($_POST['log'])){
         if (mysqli_num_rows($result) != 0){
             session_start();
             $_SESSION['user'] = $user;
+
+            if (!empty($_POST['remember']) && $_POST['remember'] == 1){
+                setcookie('login', $user, time()+ 60*60*24*30);
+            }
+
+
             header("location: index.php");
         } else {
             echo 'Такого пользователя не существует';

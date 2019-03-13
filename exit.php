@@ -5,6 +5,9 @@ if (isset($_POST['exit'])){
     unset($_SESSION['user']);
     session_destroy();
     header("location: index.php");
+
+    setcookie('login', '', time()-3600);
+
 }
 
 ?>
